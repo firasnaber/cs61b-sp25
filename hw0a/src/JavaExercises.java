@@ -33,7 +33,7 @@ public class JavaExercises {
         for (int i = 0; i < s.length(); i++) {
             output.append(s.charAt(i));
             int index = s.length() - i - 1;
-            output.append(Integer.toString(index));
+            output.append(index);
         }
 
         System.out.println(output);
