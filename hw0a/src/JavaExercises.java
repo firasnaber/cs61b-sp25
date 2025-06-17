@@ -12,7 +12,16 @@ public class JavaExercises {
      * The first row contains 1 star, the second 2 stars, and so on.
      */
     public static void starTriangle() {
-        // TODO: Fill in this function
+        for (int i = 0; i < 5; i++) {
+            StringBuilder line = new StringBuilder();
+            for (int j = 0; j < 5 - i - 1; j++) {
+                line.append(" ");
+            }
+            for (int k = 0; k < i + 1; k++) {
+                line.append("*");
+            }
+            System.out.println(line);
+        }
     }
 
     /**
@@ -20,7 +29,14 @@ public class JavaExercises {
      * Example: printIndexed("hello") -> h4e3l2l1o0
      */
     public static void printIndexed(String s) {
-        // TODO: Fill in this function
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            output.append(s.charAt(i));
+            int index = s.length() - i - 1;
+            output.append(Integer.toString(index));
+        }
+
+        System.out.println(output);
     }
 
     /**
@@ -28,8 +44,14 @@ public class JavaExercises {
      * Example: stutter("hello") -> "hheelllloo"
      */
     public static String stutter(String s) {
-        // TODO: Fill in this function
-        return null;
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i <  s.length(); i++) {
+            for (int j = 0; j < 2; j++) {
+                output.append(s.charAt(i));
+            }
+        }
+        System.out.println(output);
+        return output.toString();
     }
 
     /**
@@ -42,8 +64,17 @@ public class JavaExercises {
      *   0 if the point lies on an axis.
      */
     public static int quadrant(int x, int y) {
-        // TODO: Fill in this function
-        return 0;
+        if (x > 0 && y > 0) {
+            return 1;
+        } else if (x < 0 && y > 0) {
+            return 2;
+        } else if (x < 0 && y < 0) {
+            return 3;
+        } else if (x > 0 && y <0) {
+            return 4;
+        } else {
+            return 0;
+        }
     }
 
     public static void main(String[] args) {
