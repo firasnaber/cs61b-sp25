@@ -57,4 +57,11 @@ public class LinkedListDeque61BTest {
      }
 
     // Below, you'll write your own tests for LinkedListDeque61B.
+    @Test
+    /** This test checks whether toList returns an empty list when no nodes exist other than sentinel. */
+    public void returnEmptyList() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        assertThat(lld1.toList()).isEmpty();
+    }
 }
