@@ -17,6 +17,8 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     public LinkedListDeque61B() {
         sentinel = new Node(null, null, null);
+        sentinel.prev = sentinel;
+        sentinel.next = sentinel;
     }
 
     @Override
