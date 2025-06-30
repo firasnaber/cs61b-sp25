@@ -13,7 +13,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         }
     }
 
-    private Node sentinel;
+    private final Node sentinel;
 
     public LinkedListDeque61B() {
         sentinel = new Node(null, null, null);
@@ -23,17 +23,29 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public void addFirst(T x) {
-
+        Node node = new Node(sentinel, x, sentinel.next);
+        sentinel.next.prev = node;
+        sentinel.next = node;
     }
 
     @Override
     public void addLast(T x) {
-
+        Node node = new Node(sentinel.prev, x, sentinel);
+        sentinel.prev.next = node;
+        sentinel.prev = node;
     }
 
     @Override
     public List<T> toList() {
-        return List.of();
+        List<T> output = new ArrayList<>();
+        Node cur = sentinel.next;
+        if (cur == null || cur.next == cur) return output;
+        while (cur != sentinel) {
+            output.add(cur.item);
+            cur = cur.next;
+        }
+
+        return output;
     }
 
     @Override
