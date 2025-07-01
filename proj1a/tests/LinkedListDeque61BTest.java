@@ -114,7 +114,7 @@ public class LinkedListDeque61BTest {
 
     @Test
     /** This test checks the output of get method */
-    public void getElements() {
+    public void getTest() {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
 
         assertThat(lld1.get(0)).isEqualTo(null);
@@ -131,7 +131,7 @@ public class LinkedListDeque61BTest {
 
     @Test
     /** This test validates removeFirst functionality */
-    public void removeFirstNode() {
+    public void removeFirstTest() {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
         List<Integer> checkList = new ArrayList<>();
 
@@ -159,7 +159,7 @@ public class LinkedListDeque61BTest {
 
     @Test
     /** This test validates removeLast functionality */
-    public void removeLastNode() {
+    public void removeLastTest() {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
         List<Integer> checkList = new ArrayList<>();
 
