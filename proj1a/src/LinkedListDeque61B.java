@@ -15,6 +15,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     }
 
     private final Node sentinel;
+    public int size = 0;
 
     public LinkedListDeque61B() {
         sentinel = new Node(null, null, null);
@@ -27,6 +28,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         Node node = new Node(sentinel, x, sentinel.next);
         sentinel.next.prev = node;
         sentinel.next = node;
+        size++;
     }
 
     @Override
@@ -34,6 +36,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         Node node = new Node(sentinel.prev, x, sentinel);
         sentinel.prev.next = node;
         sentinel.prev = node;
+        size++;
     }
 
     @Override
@@ -51,27 +54,45 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return sentinel.next == sentinel;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public T removeFirst() {
-        return null;
+        if (sentinel.next == sentinel) return null;
+        T firstNodeValue = sentinel.next.item;
+        sentinel.next = sentinel.next.next;
+        sentinel.next.prev = sentinel;
+        size--;
+        return firstNodeValue;
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if (sentinel.next == sentinel) return null;
+        T lastNodeValue = sentinel.prev.item;
+        sentinel.prev = sentinel.prev.prev;
+        sentinel.prev.next = sentinel;
+        size--;
+        return lastNodeValue;
     }
 
     @Override
     public T get(int index) {
-        return null;
+        if (size < 1) return null;
+        if (index < 0 || index > size - 1) return null;
+
+        Node cur = sentinel;
+
+        for (int i = 0; i <= index; i++) {
+            cur = cur.next;
+        }
+        return cur.item;
     }
 
     @Override
