@@ -130,6 +130,23 @@ public class LinkedListDeque61BTest {
     }
 
     @Test
+    /** This test checks the output of getRecursive method */
+    public void getRecursiveTest() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        assertThat(lld1.get(0)).isEqualTo(null);
+
+        for (int i = 0; i < 200; i++) {
+            lld1.addLast(i + 1);
+        }
+        assertThat(lld1.getRecursive(0)).isEqualTo(1);
+        assertThat(lld1.get(199)).isEqualTo(200);
+        assertThat(lld1.get(100)).isEqualTo(101);
+        assertThat(lld1.get(-1)).isEqualTo(null);
+        assertThat(lld1.get(28723)).isEqualTo(null);
+    }
+
+    @Test
     /** This test validates removeFirst functionality */
     public void removeFirstTest() {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
