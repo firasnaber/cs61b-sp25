@@ -8,6 +8,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     public int nextFirst; // TODO: change to default after testing
     public int nextLast; // TODO: change to default after testing
     int size;
+    public int firstElementIndex;
 
     public ArrayDeque61B() {
         array = (T[]) new Object[8];;
@@ -22,6 +23,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             // TODO: resizeArray();
         }
         array[nextFirst] = x;
+        firstElementIndex = nextFirst;
         nextFirst = Math.floorMod(nextFirst - 1, array.length);
         size++;
     }
@@ -30,6 +32,9 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     public void addLast(T x) {
         if (array[nextLast] == null) {
             // TODO: resizeArray();
+        }
+        if (array[nextFirst] == null && array[Math.floorMod(nextLast - 1, array.length)] == null) {
+            firstElementIndex = nextLast;
         }
         array[nextLast] = x;
         nextLast = Math.floorMod(nextLast + 1, array.length);
@@ -70,7 +75,9 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        int getIndex = Math.floorMod(firstElementIndex + index, array.length);
+        if (array[getIndex] == null) return null;
+        return array[getIndex];
     }
 
     @Override

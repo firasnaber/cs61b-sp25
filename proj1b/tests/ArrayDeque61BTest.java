@@ -62,4 +62,39 @@ public class ArrayDeque61BTest {
 
         assertThat(lld1.toList()).isEqualTo(output);
     }
+
+    @Test
+    void firstElementIndexTest() {
+        ArrayDeque61B<Integer> lld1 = new ArrayDeque61B<>();
+        lld1.addLast(5);
+        lld1.addLast(6);
+        lld1.addLast(7);
+        assertThat(lld1.firstElementIndex).isEqualTo(5);
+        lld1.addFirst(4);
+        assertThat(lld1.firstElementIndex).isEqualTo(4);
+        lld1.addLast(8);
+        assertThat(lld1.firstElementIndex).isEqualTo(4);
+        lld1.addFirst(0);
+        assertThat(lld1.firstElementIndex).isEqualTo(3);
+    }
+
+    @Test
+    void getTest() {
+         ArrayDeque61B<Integer> lld1 = new ArrayDeque61B<>();
+         assertThat(lld1.get(0)).isEqualTo(null);
+
+         lld1.addFirst(1);
+         lld1.addFirst(2);
+         lld1.addLast(10);
+
+         assertThat(lld1.get(0)).isEqualTo(2);
+
+        ArrayDeque61B<Integer> lld2 = new ArrayDeque61B<>();
+        lld2.addLast(10);
+        assertThat(lld2.get(0)).isEqualTo(10);
+        lld2.addLast(100);
+        lld2.addLast(1000);
+        assertThat(lld2.get(0)).isEqualTo(10);
+        assertThat(lld2.get(2)).isEqualTo(1000);
+    }
 }
