@@ -80,7 +80,7 @@ public class ArrayDeque61BTest {
 
     @Test
     void getTest() {
-         ArrayDeque61B<Integer> lld1 = new ArrayDeque61B<>();
+         Deque61B<Integer> lld1 = new ArrayDeque61B<>();
          assertThat(lld1.get(0)).isEqualTo(null);
 
          lld1.addFirst(1);
@@ -89,12 +89,46 @@ public class ArrayDeque61BTest {
 
          assertThat(lld1.get(0)).isEqualTo(2);
 
-        ArrayDeque61B<Integer> lld2 = new ArrayDeque61B<>();
+        Deque61B<Integer> lld2 = new ArrayDeque61B<>();
+
         lld2.addLast(10);
         assertThat(lld2.get(0)).isEqualTo(10);
+
         lld2.addLast(100);
         lld2.addLast(1000);
         assertThat(lld2.get(0)).isEqualTo(10);
         assertThat(lld2.get(2)).isEqualTo(1000);
+    }
+
+    @Test
+    void sizeTest() {
+        Deque61B<Integer> lld1 = new ArrayDeque61B<>();
+
+        assertThat(lld1.size()).isEqualTo(0);
+
+        lld1.addFirst(1);
+        assertThat(lld1.size()).isEqualTo(1);
+
+        lld1.addLast(1);
+        assertThat(lld1.size()).isEqualTo(2);
+
+        lld1.removeFirst();
+        assertThat(lld1.size()).isEqualTo(1);
+
+        lld1.removeLast();
+        assertThat(lld1.size()).isEqualTo(0);
+    }
+
+    @Test
+    void isEmptyTest() {
+        Deque61B<Integer> lld1 = new ArrayDeque61B<>();
+
+        assertThat(lld1.isEmpty()).isTrue();
+
+        lld1.addFirst(10);
+        assertThat(lld1.isEmpty()).isFalse();
+
+        lld1.removeFirst();
+        assertThat(lld1.isEmpty()).isTrue();
     }
 }
