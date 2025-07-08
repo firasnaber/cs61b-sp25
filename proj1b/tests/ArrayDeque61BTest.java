@@ -128,4 +128,47 @@ public class ArrayDeque61BTest {
         lld1.removeFirst();
         assertThat(lld1.isEmpty()).isTrue();
     }
+
+    @Test
+    void removeFirstTest() {
+         ArrayDeque61B<Integer> lld1 = new ArrayDeque61B<>();
+         lld1.addFirst(1);
+         assertThat(lld1.get(0)).isEqualTo(1);
+         lld1.addLast(2);
+         lld1.addFirst(3);
+         lld1.removeFirst();
+         assertThat(lld1.get(0)).isEqualTo(1);
+         assertThat(lld1.size()).isEqualTo(2);
+         lld1.removeFirst();
+         assertThat(lld1.get(0)).isEqualTo(2);
+         int val = lld1.removeFirst();
+         assertThat(lld1.get(0)).isEqualTo(null);
+         assertThat(val).isEqualTo(2);
+    }
+
+    @Test
+    void removeLastTest() {
+        Deque61B<Integer> lld1 = new ArrayDeque61B<>();
+        lld1.addLast(1);
+        assertThat(lld1.get(0)).isEqualTo(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        lld1.addLast(4);
+        lld1.addLast(5);
+        lld1.addLast(6);
+        lld1.addLast(7);
+        lld1.addLast(8);
+
+        List<Integer> lld2 = new ArrayList<>();
+        for (int i = 1; i <= 8; i++) {
+            lld2.add(i);
+        }
+
+        assertThat(lld1.get(7)).isEqualTo(8);
+        assertThat(lld1.removeLast()).isEqualTo(8);
+        lld1.addLast(9);
+        assertThat(lld1.get(7)).isEqualTo(9);
+        assertThat(lld1.removeLast()).isEqualTo(9);
+        assertThat(lld1.get(7)).isNull();
+    }
 }

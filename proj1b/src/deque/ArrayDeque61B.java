@@ -67,12 +67,24 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public T removeFirst() {
-        return null;
+        if (array[firstElementIndex] == null) return null;
+        T element = array[firstElementIndex];
+        array[firstElementIndex] = null;
+        nextFirst = firstElementIndex;
+        firstElementIndex = Math.floorMod(nextFirst + 1, array.length);
+        size--;
+        return element;
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if (array[lastElementIndex] == null) return null;
+        T element = array[lastElementIndex];
+        array[lastElementIndex] = null;
+        nextLast = lastElementIndex;
+        lastElementIndex = Math.floorMod(nextLast - 1, array.length);
+        size--;
+        return element;
     }
 
     @Override
