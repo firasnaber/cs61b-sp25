@@ -148,16 +148,18 @@ public class ArrayDeque61BTest {
 
     @Test
     void removeLastTest() {
-        Deque61B<Integer> lld1 = new ArrayDeque61B<>();
+        ArrayDeque61B<Integer> lld1 = new ArrayDeque61B<>();
         lld1.addLast(1);
         assertThat(lld1.get(0)).isEqualTo(1);
         lld1.addLast(2);
+        assertThat(lld1.nextLast).isEqualTo(7);
         lld1.addLast(3);
         lld1.addLast(4);
         lld1.addLast(5);
         lld1.addLast(6);
         lld1.addLast(7);
         lld1.addLast(8);
+        assertThat(lld1.nextLast).isEqualTo(5);
 
         List<Integer> lld2 = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
@@ -166,9 +168,12 @@ public class ArrayDeque61BTest {
 
         assertThat(lld1.get(7)).isEqualTo(8);
         assertThat(lld1.removeLast()).isEqualTo(8);
+        assertThat(lld1.nextLast).isEqualTo(4);
         lld1.addLast(9);
+        assertThat(lld1.nextLast).isEqualTo(5);
         assertThat(lld1.get(7)).isEqualTo(9);
         assertThat(lld1.removeLast()).isEqualTo(9);
+        assertThat(lld1.nextLast).isEqualTo(4);
         assertThat(lld1.get(7)).isNull();
     }
 }
