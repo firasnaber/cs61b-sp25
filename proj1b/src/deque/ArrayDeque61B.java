@@ -9,6 +9,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     public int nextLast; // TODO: change to default after testing
     int size;
     public int firstElementIndex;
+    public int lastElementIndex;
 
     public ArrayDeque61B() {
         array = (T[]) new Object[8];;
@@ -30,13 +31,14 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public void addLast(T x) {
-        if (array[nextLast] == null) {
+        if (array[nextLast] != null) {
             // TODO: resizeArray();
         }
-        if (array[nextFirst] == null && array[Math.floorMod(nextLast - 1, array.length)] == null) {
-            firstElementIndex = nextLast;
-        }
+
+        if (array[firstElementIndex] == null) firstElementIndex = nextLast;
+
         array[nextLast] = x;
+        lastElementIndex = nextLast;
         nextLast = Math.floorMod(nextLast + 1, array.length);
         size++;
     }
@@ -44,11 +46,11 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     @Override
     public List<T> toList() {
         List<T> returnList = new ArrayList<>();
-        int temp = nextFirst + 1;
+        int cur = firstElementIndex;
         for (int i = 0; i < array.length; i++) {
-            int curIndex = Math.floorMod(temp, array.length);
+            int curIndex = Math.floorMod(cur, array.length);
             returnList.add(array[curIndex]);
-            temp++;
+            cur++;
         }
         return returnList;
     }
@@ -76,7 +78,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     @Override
     public T get(int index) {
         int getIndex = Math.floorMod(firstElementIndex + index, array.length);
-        if (array[getIndex] == null) return null;
+        if (index < 0 || index >= array.length || array[getIndex] == null) return null;
         return array[getIndex];
     }
 

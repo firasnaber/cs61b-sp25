@@ -54,12 +54,10 @@ public class ArrayDeque61BTest {
         lld1.addLast(5);
 
         List<Integer> output = new ArrayList<>();
-
         for (int i = 1; i <= 8; i++) {
             if (i <= 5) output.add(i);
             else output.add(null);
         }
-
         assertThat(lld1.toList()).isEqualTo(output);
     }
 
@@ -122,7 +120,6 @@ public class ArrayDeque61BTest {
     @Test
     void isEmptyTest() {
         Deque61B<Integer> lld1 = new ArrayDeque61B<>();
-
         assertThat(lld1.isEmpty()).isTrue();
 
         lld1.addFirst(10);
