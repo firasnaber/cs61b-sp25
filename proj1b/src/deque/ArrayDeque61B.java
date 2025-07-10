@@ -5,9 +5,9 @@ import java.util.List;
 
 public class ArrayDeque61B<T> implements Deque61B<T> {
     private T[] array;
-    public int nextFirst; // TODO: change to default after testing
-    public int nextLast; // TODO: change to default after testing
-    int size;
+    private int nextFirst;
+    public int nextLast;
+    private int size;
     public int firstElementIndex;
     public int lastElementIndex;
 
@@ -20,8 +20,8 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public void addFirst(T x) {
-        if (array[nextFirst] != null) {
-            // TODO: resizeArray();
+        if (size == array.length) {
+            resizeUp(2);
         }
         array[nextFirst] = x;
         firstElementIndex = nextFirst;
@@ -31,8 +31,8 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public void addLast(T x) {
-        if (array[nextLast] != null) {
-            // TODO: resizeArray();
+        if (size == array.length) {
+            resizeUp(2);
         }
 
         if (array[firstElementIndex] == null) firstElementIndex = nextLast;
@@ -49,6 +49,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         int cur = firstElementIndex;
         for (int i = 0; i < array.length; i++) {
             int curIndex = Math.floorMod(cur, array.length);
+            if (array[curIndex] == null) break;
             returnList.add(array[curIndex]);
             cur++;
         }
@@ -73,6 +74,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         nextFirst = firstElementIndex;
         firstElementIndex = Math.floorMod(nextFirst + 1, array.length);
         size--;
+        if(toResizeDown()) resizeDown();
         return element;
     }
 
@@ -84,6 +86,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         nextLast = lastElementIndex;
         lastElementIndex = Math.floorMod(nextLast - 1, array.length);
         size--;
+        if(toResizeDown()) resizeDown();
         return element;
     }
 
@@ -97,5 +100,43 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     @Override
     public T getRecursive(int index) {
         return null;
+    }
+
+    public void resizeUp(double by) {
+        T[] outputArray = (T[]) new Object[(int) (array.length * by)];
+        for (int i = 0; i < array.length; i++) {
+            int newArrayIndex = Math.floorMod(i + firstElementIndex, outputArray.length);
+            int curArrayIndex = Math.floorMod(i + firstElementIndex, array.length);
+            outputArray[newArrayIndex] = array[curArrayIndex];
+            lastElementIndex = newArrayIndex;
+            nextLast = Math.floorMod(newArrayIndex + 1, outputArray.length);
+        }
+        array = outputArray;
+    }
+
+    public void resizeDown() {
+        T[] outputArray = (T[]) new Object[(int) (array.length * 0.5)];
+        int curIndex = firstElementIndex;
+        int lastIndex = -1;
+        for (int i = 0; i < outputArray.length; i++) {
+            if (array[curIndex] == null) break;
+            if (array[curIndex] != null) outputArray[i] = array[curIndex];
+            curIndex++;
+            if (outputArray[i] != null) lastIndex++;
+        }
+        nextFirst = Math.floorMod(-1, outputArray.length);
+        nextLast = Math.floorMod(lastIndex + 1, outputArray.length);
+
+        firstElementIndex = Math.floorMod(nextFirst + 1, outputArray.length);
+        lastElementIndex = Math.floorMod(nextLast - 1, outputArray.length);
+        array = outputArray;
+    }
+
+    private boolean toResizeDown() {
+        if (array.length >= 16) {
+            double ratio = (double) size / array.length;
+            if (ratio < 0.25) return true;
+        }
+        return false;
     }
 }

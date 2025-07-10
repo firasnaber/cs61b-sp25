@@ -1,7 +1,6 @@
 import deque.ArrayDeque61B;
 
 import deque.Deque61B;
-import edu.princeton.cs.algs4.In;
 import jh61b.utils.Reflection;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -161,11 +160,6 @@ public class ArrayDeque61BTest {
         lld1.addLast(8);
         assertThat(lld1.nextLast).isEqualTo(5);
 
-        List<Integer> lld2 = new ArrayList<>();
-        for (int i = 1; i <= 8; i++) {
-            lld2.add(i);
-        }
-
         assertThat(lld1.get(7)).isEqualTo(8);
         assertThat(lld1.removeLast()).isEqualTo(8);
         assertThat(lld1.nextLast).isEqualTo(4);
@@ -175,5 +169,42 @@ public class ArrayDeque61BTest {
         assertThat(lld1.removeLast()).isEqualTo(9);
         assertThat(lld1.nextLast).isEqualTo(4);
         assertThat(lld1.get(7)).isNull();
+    }
+
+    @Test
+    void resizeUpTest() {
+        ArrayDeque61B<Integer> lld1 = new ArrayDeque61B<>();
+        lld1.addFirst(9);
+        lld1.addFirst(8);
+        lld1.addFirst(7);
+        lld1.addFirst(6);
+        lld1.addFirst(5);
+        lld1.addFirst(4);
+        lld1.addFirst(3);
+        lld1.addFirst(2);
+        List<Integer> output = new ArrayList<>();
+        for (int i = 2; i < lld1.size() + 2; i++) {
+            output.add(i);
+        }
+        assertThat(lld1.toList()).isEqualTo(output);
+        lld1.addFirst(1);
+        lld1.removeFirst();
+        assertThat(lld1.toList()).isEqualTo(output);
+    }
+
+    @Test
+    void resizeDownTest() {
+        ArrayDeque61B<Integer> lld1 = new ArrayDeque61B<>();
+        for (int i = 0; i < 33; i++) {
+            lld1.addLast(i);
+        }
+
+        assertThat(lld1.size()).isEqualTo(33);
+
+        for (int i = 0; i < 30; i++) {
+            lld1.removeFirst();
+        }
+
+        assertThat(lld1.size()).isEqualTo(3);
     }
 }
